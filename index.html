@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KeyboardHero</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game" width="600" height="800"></canvas>
+
+      <section id="menu" class="overlay">
+        <h1>KeyboardHero</h1>
+        <p class="tagline">A S D F G — hit the notes as they cross the line</p>
+
+        <div class="difficulty-row">
+          <button class="diff-btn" data-difficulty="easy">Easy</button>
+          <button class="diff-btn selected" data-difficulty="medium">Medium</button>
+          <button class="diff-btn" data-difficulty="hard">Hard</button>
+        </div>
+
+        <button id="start-btn" class="primary">Start</button>
+
+        <div class="highscores">
+          <h2>High Scores — <span id="hs-difficulty-label">Medium</span></h2>
+          <ol id="hs-list"><li class="empty">No scores yet</li></ol>
+        </div>
+
+        <p class="hint">Hold sustained notes (longer bars) for bonus points. Build combos for ×2 / ×3 / ×4 multipliers.</p>
+      </section>
+
+      <section id="hud" class="overlay hidden">
+        <div class="hud-row top">
+          <div class="hud-item left">
+            <span class="label">Score</span>
+            <span id="hud-score" class="value">0</span>
+          </div>
+          <div class="hud-item center">
+            <div id="hud-progress"><div id="hud-progress-fill"></div></div>
+          </div>
+          <div class="hud-item right">
+            <span class="label">Multiplier</span>
+            <span id="hud-multiplier" class="value">×1</span>
+          </div>
+        </div>
+        <div class="hud-row bottom">
+          <div class="hud-item right">
+            <span class="label">Accuracy</span>
+            <span id="hud-accuracy" class="value">100%</span>
+          </div>
+        </div>
+        <div id="hud-combo" class="hidden"></div>
+      </section>
+
+      <section id="results" class="overlay hidden">
+        <h1>Song Complete!</h1>
+        <div class="result-stats">
+          <div><span class="label">Score</span><span id="res-score" class="big">0</span></div>
+          <div><span class="label">Accuracy</span><span id="res-accuracy">0%</span></div>
+          <div><span class="label">Best combo</span><span id="res-combo">0</span></div>
+          <div>
+            <span class="label">Perfect / Good / Miss</span>
+            <span id="res-counts">0 / 0 / 0</span>
+          </div>
+        </div>
+        <div id="res-newhs" class="hidden">
+          <p class="newhs-banner">New high score!</p>
+          <label>Enter initials:
+            <input id="res-initials" maxlength="3" autocomplete="off" />
+          </label>
+          <button id="res-save-btn" class="primary">Save</button>
+        </div>
+        <button id="res-menu-btn" class="primary">Back to menu</button>
+      </section>
+    </div>
+
+    <script src="src/scoring.js"></script>
+    <script src="src/highscores.js"></script>
+    <script src="src/song.js"></script>
+    <script src="src/audio.js"></script>
+    <script src="src/game.js"></script>
+    <script src="src/main.js"></script>
+  </body>
+</html>
