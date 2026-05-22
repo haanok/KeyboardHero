@@ -30,17 +30,19 @@ function generateSong(difficulty = 'medium', targetDurationSec = 75) {
   const scale = isMajor ? PENT_MAJOR : PENT_MINOR;
   const rootMidi = KEY_MIDI[key];
 
-  // Use 5 pitches per octave × 2 octaves = 10 melody slots, mapped to 5 lanes.
-  // Lower 2 pitches → lane 0, next 2 → lane 1, ... (each lane covers 2 pitches across octaves).
+  // Use 5 pitches per octave × 2 octaves = 10 melody slots, mapped to 4 lanes.
+  // Lower pitches → lane 0 (lowest fret), higher → lane 3 (highest fret).
   const pitches = [];
   for (let oct = 0; oct < 2; oct++) {
     for (const interval of scale) {
       pitches.push(rootMidi + interval + oct * 12);
     }
   }
-  // pitches has 10 entries, sorted low→high.
+  // pitches has 10 entries, sorted low→high. Split into 4 bands of 2-3 pitches each.
 
-  const laneForPitchIndex = i => Math.min(4, Math.floor(i / 2));
+  const NUM_LANES = 4;
+  const laneForPitchIndex = i =>
+    Math.min(NUM_LANES - 1, Math.floor((i * NUM_LANES) / pitches.length));
 
   const notes = [];
   // Lead-in: give the player ~2 seconds before first note.

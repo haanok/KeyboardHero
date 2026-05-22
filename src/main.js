@@ -13,6 +13,7 @@ const hsList = document.getElementById('hs-list');
 const hsDifficultyLabel = document.getElementById('hs-difficulty-label');
 const startBtn = document.getElementById('start-btn');
 const diffButtons = document.querySelectorAll('.diff-btn');
+const layoutButtons = document.querySelectorAll('.layout-btn');
 
 const hudScore = document.getElementById('hud-score');
 const hudMultiplier = document.getElementById('hud-multiplier');
@@ -29,11 +30,19 @@ const resInitials = document.getElementById('res-initials');
 const resSaveBtn = document.getElementById('res-save-btn');
 const resMenuBtn = document.getElementById('res-menu-btn');
 
+const LAYOUT_KEY = 'keyboardhero.layoutMode';
 let currentDifficulty = 'medium';
+let currentLayout = (localStorage.getItem(LAYOUT_KEY) === 'guitar') ? 'guitar' : 'flat';
 let audio = null;
 let game = null;
 let scorekeeper = null;
 let session = null; // { score, accuracy, bestCombo, perfect, good, miss, difficulty }
+
+function applyInitialLayoutSelection() {
+  layoutButtons.forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.layout === currentLayout);
+  });
+}
 
 function show(...elements) {
   for (const el of [menu, hud, results]) el.classList.add('hidden');
@@ -67,6 +76,15 @@ diffButtons.forEach(btn => {
     btn.classList.add('selected');
     currentDifficulty = btn.dataset.difficulty;
     renderHighScores();
+  });
+});
+
+layoutButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    layoutButtons.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    currentLayout = btn.dataset.layout;
+    localStorage.setItem(LAYOUT_KEY, currentLayout);
   });
 });
 
@@ -105,6 +123,8 @@ function startGame() {
     onTick: () => updateHud(song),
     onComboMilestone: (combo) => flashCombo(combo),
     onFinish: () => finishGame(song),
+  }, {
+    layoutMode: currentLayout,
   });
 
   // Reset HUD
@@ -175,6 +195,7 @@ function cleanupGame() {
 }
 
 // Initial render
+applyInitialLayoutSelection();
 renderHighScores();
 show(menu);
 

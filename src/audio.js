@@ -4,7 +4,7 @@
 window.KH = window.KH || {};
 (function (KH) {
 
-const LANE_WAVEFORM = ['triangle', 'square', 'sawtooth', 'triangle', 'square'];
+const LANE_WAVEFORM = ['triangle', 'square', 'sawtooth', 'triangle'];
 
 const LOOKAHEAD_MS = 25;
 const SCHEDULE_AHEAD = 0.12; // seconds

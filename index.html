@@ -12,12 +12,29 @@
 
       <section id="menu" class="overlay">
         <h1>KeyboardHero</h1>
-        <p class="tagline">A S D F G — hit the notes as they cross the line</p>
+        <p class="tagline">4 frets, 4 fingers — hit the notes as they cross the line</p>
 
-        <div class="difficulty-row">
-          <button class="diff-btn" data-difficulty="easy">Easy</button>
-          <button class="diff-btn selected" data-difficulty="medium">Medium</button>
-          <button class="diff-btn" data-difficulty="hard">Hard</button>
+        <div class="opt-group">
+          <span class="opt-label">Difficulty</span>
+          <div class="opt-row">
+            <button class="diff-btn" data-difficulty="easy">Easy</button>
+            <button class="diff-btn selected" data-difficulty="medium">Medium</button>
+            <button class="diff-btn" data-difficulty="hard">Hard</button>
+          </div>
+        </div>
+
+        <div class="opt-group">
+          <span class="opt-label">Layout</span>
+          <div class="opt-row">
+            <button class="layout-btn selected" data-layout="flat">
+              <span class="layout-name">Flat hand</span>
+              <span class="layout-keys">A&nbsp;S&nbsp;D&nbsp;F</span>
+            </button>
+            <button class="layout-btn" data-layout="guitar">
+              <span class="layout-name">Guitar grip</span>
+              <span class="layout-keys">F&nbsp;D&nbsp;S&nbsp;A</span>
+            </button>
+          </div>
         </div>
 
         <button id="start-btn" class="primary">Start</button>
